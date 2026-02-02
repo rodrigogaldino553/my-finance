@@ -25,6 +25,11 @@
     <%= form.label :payment_date, style: "display: block" %>
     <%= form.datetime_field :payment_date %>
   </div>
+  
+  <div>
+    <%= form.label :category, style: "display: block" %>
+    <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, prompt: "Select a category" %>
+  </div>
 
   <div>
     <%= form.label :until_date, style: "display: block" %>

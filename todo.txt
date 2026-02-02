@@ -1,6 +1,9 @@
 A ideia é ter na palma das maão uma ferramenta para entender os gastos, e entender melhor onde pode ser melhorado.
 penso em juntar o melhor dos mundos quando se trata de organização financeira, para isso, precisamos de:
 - Uma maneira rápida e prática de cadastrar gastos cotidianos.
+- Pode ser uma boa ideia usar wiked forms ao criar uma nova transaction
+  seria um form de duas fases
+- Uma opção de adicição rápida é bacana também, especifica para transações avulsas, visando ser mais pratico ao adicionar essas transações
 - Um sistema de categorização de gastos facil de entender.
 - Boa experiência em mobile, então conto com o recurso de PWA.
 - Gestão de gastos recorrentes com lembrete no dia para pagar, como aluguel, agua
