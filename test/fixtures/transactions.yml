@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  value: 1.5
+  payment_date: 2026-02-02 04:11:51
+  until_date: 2026-02-02 04:11:51
+  recurring: false
+  recurrence: 1
+  status: 1
+  comment: MyText
+
+two:
+  title: MyString
+  value: 1.5
+  payment_date: 2026-02-02 04:11:51
+  until_date: 2026-02-02 04:11:51
+  recurring: false
+  recurrence: 1
+  status: 1
+  comment: MyText

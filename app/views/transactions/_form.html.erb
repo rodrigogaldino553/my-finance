@@ -1,0 +1,57 @@
+<%= form_with(model: transaction) do |form| %>
+  <% if transaction.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+        <% transaction.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :value, style: "display: block" %>
+    <%= form.text_field :value %>
+  </div>
+
+  <div>
+    <%= form.label :payment_date, style: "display: block" %>
+    <%= form.datetime_field :payment_date %>
+  </div>
+
+  <div>
+    <%= form.label :until_date, style: "display: block" %>
+    <%= form.datetime_field :until_date %>
+  </div>
+
+  <div>
+    <%= form.label :recurring, style: "display: block" %>
+    <%= form.checkbox :recurring %>
+  </div>
+
+  <div>
+    <%= form.label :recurrence, style: "display: block" %>
+    <%= form.number_field :recurrence %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div>
+    <%= form.label :comment, style: "display: block" %>
+    <%= form.textarea :comment %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

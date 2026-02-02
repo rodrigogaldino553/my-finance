@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=money_development
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build:
+      context: .
+      dockerfile: compose.Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && ./bin/rails s -b '0.0.0.0'"
+    volumes:
+      - .:/rails
+      - bundle_data:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db/money_development
+      - RAILS_MASTER_KEY
+volumes:
+  bundle_data:

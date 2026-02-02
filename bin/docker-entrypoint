@@ -1,8 +1,26 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:prepare
+if [ -f /rails/tmp/pids/server.pid ]; then
+  rm /rails/tmp/pids/server.pid
 fi
 
-exec "${@}"
+# Function to check if the database is ready
+db_ready() {
+  # Try to connect to the database using pg_isready
+  pg_isready -h db -p 5432 -q -U postgres
+}
+
+# Wait for the database to become available
+echo "Waiting for database to be ready..."
+until db_ready; do
+  >&2 echo "Database is unavailable - sleeping"
+  sleep 1
+done
+
+echo "Database is ready. Continuing..."
+
+# Check if the database exists, if not create and migrate it
+bundle exec rails db:prepare
+
+exec "$@"
