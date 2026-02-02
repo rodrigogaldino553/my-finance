@@ -15,15 +15,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_041151) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "transactions", force: :cascade do |t|
+    t.float "amount"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "payment_date"
-    t.integer "recurrence"
+    t.integer "recurrence", default: 0
     t.boolean "recurring"
-    t.integer "status"
+    t.integer "status", default: 0
     t.string "title"
     t.datetime "until_date"
     t.datetime "updated_at", null: false
-    t.float "value"
   end
 end

@@ -17,8 +17,8 @@
   </div>
 
   <div>
-    <%= form.label :value, style: "display: block" %>
-    <%= form.text_field :value %>
+    <%= form.label :amount, style: "display: block" %>
+    <%= form.text_field :amount %>
   </div>
 
   <div>
@@ -38,12 +38,12 @@
 
   <div>
     <%= form.label :recurrence, style: "display: block" %>
-    <%= form.number_field :recurrence %>
+    <%= form.select :recurrence, Transaction.recurrences.keys.map { |key| [key.humanize, key] }, include_blank: true %>
   </div>
 
   <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
+    <%= form.select :status, Transaction.statuses.keys.map { |key| [key.humanize, key] } %>
   </div>
 
   <div>
