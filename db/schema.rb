@@ -44,7 +44,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_051311) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.boolean "impulsive"
     t.string "name"
     t.datetime "updated_at", null: false
   end
