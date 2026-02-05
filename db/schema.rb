@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_02_051311) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_04_192428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,6 +56,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_051311) do
     t.datetime "payment_date"
     t.integer "recurrence", default: 0
     t.boolean "recurring"
+    t.datetime "recurring_at"
     t.integer "status", default: 0
     t.string "title"
     t.datetime "until_date"

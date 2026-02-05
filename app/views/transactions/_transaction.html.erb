@@ -6,17 +6,17 @@
 
   <div>
     <strong>amount:</strong>
-    <%= transaction.amount %>
+    <%= "R$#{transaction.amount.round(2)}" %>
   </div>
 
   <div>
     <strong>Payment date:</strong>
-    <%= transaction.payment_date %>
+    <%= transaction.payment_date&.strftime("%Y-%m-%d %H:%M:%S") %>
   </div>
 
   <div>
     <strong>Until date:</strong>
-    <%= transaction.until_date %>
+    <%= transaction.until_date&.strftime("%Y-%m-%d %H:%M:%S") %>
   </div>
 
   <div>

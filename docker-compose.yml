@@ -8,6 +8,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
+    tty: true
+    stdin_open: true
     build:
       context: .
       dockerfile: compose.Dockerfile
