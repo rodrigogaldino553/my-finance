@@ -8,7 +8,7 @@ Rails.application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
-config.hosts << "42be-201-182-68-71.ngrok-free.app"
+  config.hosts << "42be-201-182-68-71.ngrok-free.app"
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -20,7 +20,7 @@ config.hosts << "42be-201-182-68-71.ngrok-free.app"
   if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
-    config.public_file_server.headers = { "cache-control" => "public, max-age=#{2.days.to_i}" }
+    config.public_file_server.headers = {"cache-control" => "public, max-age=#{2.days.to_i}"}
   else
     config.action_controller.perform_caching = false
   end
@@ -38,7 +38,7 @@ config.hosts << "42be-201-182-68-71.ngrok-free.app"
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
