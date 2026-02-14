@@ -74,4 +74,5 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Rails server directly to ensure PORT binding works on Render
 # Thruster is removed to simplify port binding (Render expects binding to $PORT, default 10000)
+EXPOSE 10000
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
