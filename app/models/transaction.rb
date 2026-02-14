@@ -14,9 +14,14 @@ class Transaction < ApplicationRecord
   before_validation :payment_behaviour
   after_save do
     next_recurring_transaction if self.recurring? && self.payment_date.present? && self.recurring_at.nil?
+    enqueue_notification if self.recurring? && self.payment_date.present? && self.recurring_at.present?
   end
   
   private
+  
+  def enqueue_notification
+    
+  end
   
   def next_recurring_transaction
     times = 

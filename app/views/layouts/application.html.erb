@@ -12,18 +12,58 @@
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Bootstrap 5 %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-dark text-light mb-5 pb-5">
+    <div class="container mt-3">
+      <%= yield %>
+    </div>
+
+    <nav class="navbar navbar-dark bg-black fixed-bottom border-top border-secondary">
+      <div class="container-fluid d-flex justify-content-around align-items-center">
+        <%= link_to root_path, class: "text-decoration-none text-center #{current_page?(root_path) ? 'text-success' : 'text-secondary'}" do %>
+          <i class="bi bi-wallet2 fs-4"></i>
+          <div style="font-size: 0.7rem;">Home</div>
+        <% end %>
+
+        <%= link_to new_transaction_path, class: "text-decoration-none text-center" do %>
+          <div class="rounded-circle bg-success d-flex align-items-center justify-content-center shadow" style="width: 50px; height: 50px; margin-top: -25px; border: 4px solid #000;">
+             <i class="bi bi-plus-lg fs-3 text-white"></i>
+          </div>
+        <% end %>
+
+        <%= link_to categories_path, class: "text-decoration-none text-center #{current_page?(categories_path) ? 'text-success' : 'text-secondary'}" do %>
+          <i class="bi bi-grid fs-4"></i>
+          <div style="font-size: 0.7rem;">Cats</div>
+        <% end %>
+      </div>
+    </nav>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker")
+            .then((registration) => {
+              console.log("ServiceWorker registration successful with scope: ", registration.scope);
+            })
+            .catch((err) => {
+              console.log("ServiceWorker registration failed: ", err);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

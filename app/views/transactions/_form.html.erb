@@ -1,9 +1,8 @@
-<%= form_with(model: transaction) do |form| %>
+<%= form_with(model: transaction, class: "mb-5 pb-5") do |form| %>
   <% if transaction.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
-
-      <ul>
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h4>
+      <ul class="mb-0">
         <% transaction.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,52 +10,69 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :amount, class: "form-label fw-bold" %>
+    <div class="input-group input-group-lg">
+      <span class="input-group-text bg-success text-white border-success">R$</span>
+      <%= form.number_field :amount, step: "0.01", class: "form-control form-control-lg fw-bold text-success", placeholder: "0.00", style: "font-size: 2rem;" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :amount, style: "display: block" %>
-    <%= form.text_field :amount %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "What was this for?" %>
   </div>
 
-  <div>
-    <%= form.label :payment_date, style: "display: block" %>
-    <%= form.datetime_field :payment_date %>
-  </div>
-  
-  <div>
-    <%= form.label :category, style: "display: block" %>
-    <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, prompt: "Select a category" %>
-  </div>
-
-  <div>
-    <%= form.label :until_date, style: "display: block" %>
-    <%= form.datetime_field :until_date %>
+  <div class="row">
+    <div class="col-6 mb-3">
+        <%= form.label :payment_date, class: "form-label" %>
+        <%= form.date_field :payment_date, class: "form-control" %>
+    </div>
+    <div class="col-6 mb-3">
+        <%= form.label :category_id, "Category", class: "form-label" %>
+        <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, { prompt: "Select..." }, { class: "form-select" } %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :recurring, style: "display: block" %>
-    <%= form.checkbox :recurring %>
+  <div class="mb-3">
+    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptions">
+       <i class="bi bi-gear-fill me-2"></i> Advanced Options (Recurring, Status)
+    </button>
   </div>
 
-  <div>
-    <%= form.label :recurrence, style: "display: block" %>
-    <%= form.select :recurrence, Transaction.recurrences.keys.map { |key| [key.humanize, key] }, include_blank: true %>
+  <div class="collapse" id="advancedOptions">
+      <div class="card card-body bg-light border-0 mb-3">
+        <div class="mb-3">
+            <div class="form-check form-switch">
+                <%= form.check_box :recurring, class: "form-check-input", role: "switch", id: "recurringSwitch" %>
+                <%= form.label :recurring, class: "form-check-label", for: "recurringSwitch" %>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :recurrence, class: "form-label" %>
+            <%= form.select :recurrence, Transaction.recurrences.keys.map { |key| [key.humanize, key] }, { include_blank: true }, { class: "form-select" } %>
+        </div>
+        
+        <div class="mb-3">
+            <%= form.label :until_date, class: "form-label" %>
+            <%= form.date_field :until_date, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :status, class: "form-label" %>
+            <%= form.select :status, Transaction.statuses.keys.map { |key| [key.humanize, key] }, {}, { class: "form-select" } %>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :comment, class: "form-label" %>
+            <%= form.text_area :comment, class: "form-control", rows: 2 %>
+        </div>
+      </div>
   </div>
 
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.select :status, Transaction.statuses.keys.map { |key| [key.humanize, key] } %>
-  </div>
-
-  <div>
-    <%= form.label :comment, style: "display: block" %>
-    <%= form.textarea :comment %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="d-grid gap-2 mt-4">
+    <%= form.submit "Save Transaction", class: "btn btn-success btn-lg shadow rounded-pill" %>
+    <%= link_to "Cancel", transactions_path, class: "btn btn-outline-secondary rounded-pill" %>
   </div>
 <% end %>
