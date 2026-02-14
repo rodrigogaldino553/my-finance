@@ -2,14 +2,14 @@ class Transaction < ApplicationRecord
   belongs_to :category
 
   validates :title, presence: true, allow_blank: false
-  validates :amount, presence: true, numericality: {greater_than: 0}
+  validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :recurrence, presence: true, if: :recurring?
   validates :recurring_at, presence: true, if: :recurring?, unless: :new_record?
   validates :payment_date, presence: true, if: :paid?
   validate :recurring_at_less_than_until_date, if: :recurring?
 
-  enum :status, {pending: 0, paid: 1, overdue: 2}
-  enum :recurrence, {daily: 0, weekly: 1, monthly: 2}
+  enum :status, { pending: 0, paid: 1, overdue: 2 }
+  enum :recurrence, { daily: 0, weekly: 1, monthly: 2 }
 
   before_validation :payment_behaviour
   after_save do

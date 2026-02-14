@@ -17,7 +17,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create transaction" do
     assert_difference("Transaction.count") do
-      post transactions_url, params: {transaction: {comment: @transaction.comment, payment_date: @transaction.payment_date, recurrence: @transaction.recurrence, recurring: @transaction.recurring, status: @transaction.status, title: @transaction.title, until_date: @transaction.until_date, value: @transaction.value}}
+      post transactions_url, params: { transaction: { comment: @transaction.comment, payment_date: @transaction.payment_date, recurrence: @transaction.recurrence, recurring: @transaction.recurring, status: @transaction.status, title: @transaction.title, until_date: @transaction.until_date, value: @transaction.value } }
     end
 
     assert_redirected_to transaction_url(Transaction.last)
@@ -34,7 +34,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update transaction" do
-    patch transaction_url(@transaction), params: {transaction: {comment: @transaction.comment, payment_date: @transaction.payment_date, recurrence: @transaction.recurrence, recurring: @transaction.recurring, status: @transaction.status, title: @transaction.title, until_date: @transaction.until_date, value: @transaction.value}}
+    patch transaction_url(@transaction), params: { transaction: { comment: @transaction.comment, payment_date: @transaction.payment_date, recurrence: @transaction.recurrence, recurring: @transaction.recurring, status: @transaction.status, title: @transaction.title, until_date: @transaction.until_date, value: @transaction.value } }
     assert_redirected_to transaction_url(@transaction)
   end
 
