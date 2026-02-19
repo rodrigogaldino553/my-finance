@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.all.order(payment_date: :desc)
+    @transactions = Transaction.includes(:category).order(payment_date: :desc)
   end
 
   # GET /transactions/1 or /transactions/1.json

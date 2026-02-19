@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page Redesign - Money Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background: #f5f5f5;
+            padding: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+            color: #333;
+        }
+        
+        .wireframe-title {
+            background: #fff;
+            border: 2px solid #333;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .wireframe-title h1 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .wireframe-title p {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+        
+        .balance-card {
+            background: #fff;
+            border: 3px solid #333;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .balance-card small {
+            font-size: 12px;
+            color: #666;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .balance-card h2 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .filters {
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        
+        .filter-chip {
+            background: #f0f0f0;
+            border: 2px solid #999;
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        
+        .filter-chip.active {
+            background: #ccc;
+            border-color: #333;
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            flex: 1;
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .stat-card .label {
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .stat-card .value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .section-header h3 {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        
+        .section-header button {
+            background: #f0f0f0;
+            border: 2px solid #999;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+        
+        .transaction-card {
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border: 2px solid #999;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .transaction-info h4 {
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .transaction-info small {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .transaction-right {
+            text-align: right;
+        }
+        
+        .transaction-amount {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .transaction-status {
+            font-size: 10px;
+            background: #e0e0e0;
+            border: 1px solid #999;
+            border-radius: 10px;
+            padding: 2px 8px;
+        }
+        
+        .fab {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: #fff;
+            border: 3px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 3px solid #333;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            text-align: center;
+            font-size: 11px;
+        }
+        
+        .nav-item-icon {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+        
+        .badge {
+            position: absolute;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            z-index: 10;
+            color: white;
+        }
+        
+        .badge-reuse {
+            background: #4CAF50;
+        }
+        
+        .badge-new {
+            background: #FF9800;
+        }
+        
+        @media (max-width: 400px) {
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-title">
+        <h1>Home Page Redesign - Money Tracker</h1>
+        <p>Improved layout with filters, stats overview, and better visual hierarchy for transaction management.</p>
+    </div>
+    
+    <!-- REUSABLE: Card component from Bootstrap (app/views/layouts/application.html.erb) -->
+    <div style="position: relative;">
+        <span class="badge badge-reuse" style="top: 4px; right: 4px;" title="Bootstrap Card component">[REUSE] Card</span>
+        <div class="balance-card">
+            <small>Total Balance</small>
+            <h2>R$ 29.00</h2>
+        </div>
+    </div>
+    
+    <!-- NEW COMPONENT: Filter chips for transaction filtering -->
+    <div style="position: relative;">
+        <span class="badge badge-new" style="top: 4px; right: 4px;" title="To be created at app/components/transaction_filters_component.rb">[NEW] FilterChips</span>
+        <div class="filters">
+            <div class="filter-chip active">All</div>
+            <div class="filter-chip">Paid</div>
+            <div class="filter-chip">Pending</div>
+            <div class="filter-chip">Overdue</div>
+        </div>
+    </div>
+    
+    <!-- NEW COMPONENT: Statistics cards showing income/expense breakdown -->
+    <div style="position: relative;">
+        <span class="badge badge-new" style="top: 4px; right: 4px;" title="To be created at app/components/stat_card_component.rb">[NEW] StatCards</span>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="label">INCOME</div>
+                <div class="value">R$ 29</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">EXPENSE</div>
+                <div class="value">R$ 0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">THIS MONTH</div>
+                <div class="value">3</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-header">
+        <h3>14 Feb 2026</h3>
+        <button>Sort ▼</button>
+    </div>
+    
+    <!-- REUSABLE: Transaction card partial from app/views/transactions/_transaction.html.erb -->
+    <div style="position: relative;">
+        <span class="badge badge-reuse" style="top: 4px; right: 4px;" title="app/views/transactions/_transaction.html.erb">[REUSE] Transaction Card</span>
+        <div class="transaction-card">
+            <div class="transaction-left">
+                <div class="transaction-icon">🛍️</div>
+                <div class="transaction-info">
+                    <h4>Lanche</h4>
+                    <small>MyString</small>
+                </div>
+            </div>
+            <div class="transaction-right">
+                <div class="transaction-amount">R$ 26.00</div>
+                <div class="transaction-status">Paid</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-header" style="margin-top: 20px;">
+        <h3>02 Feb 2026</h3>
+    </div>
+    
+    <!-- REUSABLE: Transaction card partial -->
+    <div style="position: relative;">
+        <span class="badge badge-reuse" style="top: 4px; right: 4px;" title="app/views/transactions/_transaction.html.erb">[REUSE] Transaction Card</span>
+        <div class="transaction-card">
+            <div class="transaction-left">
+                <div class="transaction-icon">📦</div>
+                <div class="transaction-info">
+                    <h4>MyString</h4>
+                    <small>Geral</small>
+                </div>
+            </div>
+            <div class="transaction-right">
+                <div class="transaction-amount">R$ 1.50</div>
+                <div class="transaction-status">Paid</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="position: relative;">
+        <span class="badge badge-reuse" style="top: 4px; right: 4px;" title="app/views/transactions/_transaction.html.erb">[REUSE] Transaction Card</span>
+        <div class="transaction-card">
+            <div class="transaction-left">
+                <div class="transaction-icon">📦</div>
+                <div class="transaction-info">
+                    <h4>MyString</h4>
+                    <small>Geral</small>
+                </div>
+            </div>
+            <div class="transaction-right">
+                <div class="transaction-amount">R$ 1.50</div>
+                <div class="transaction-status">Paid</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- REUSABLE: Floating Action Button pattern from layout -->
+    <div style="position: relative;">
+        <span class="badge badge-reuse" style="top: 4px; right: 4px;" title="FAB pattern from app/views/layouts/application.html.erb">[REUSE] FAB</span>
+        <div class="fab">+</div>
+    </div>
+    
+    <!-- REUSABLE: Bottom navigation from app/views/layouts/application.html.erb -->
+    <div style="position: relative;">
+        <span class="badge badge-reuse" style="top: 4px; right: 4px;" title="app/views/layouts/application.html.erb">[REUSE] Bottom Nav</span>
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <div class="nav-item-icon">🏠</div>
+                <div>Home</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-item-icon">📊</div>
+                <div>Stats</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-item-icon">⚙️</div>
+                <div>Settings</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="height: 80px;"></div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<h1>Upcoming Payment Reminder</h1>
+
+<p>You have an upcoming payment for <strong><%= @transaction.title %></strong>.</p>
+
+<p>
+  <strong>Amount:</strong> <%= number_to_currency(@transaction.amount) %><br>
+  <strong>Due Date:</strong> <%= @transaction.recurring_at.strftime("%B %d, %Y") %>
+</p>
+
+<p>
+  <%= link_to "View Transaction", transaction_url(@transaction) %>
+</p>

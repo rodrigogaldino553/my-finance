@@ -1,26 +1,28 @@
-<div id="<%= dom_id transaction %>" class="card mb-2 shadow-sm border-0 rounded-3">
-  <div class="card-body p-3 d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center">
-      <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-        <% if transaction.category&.icon&.attached? %>
-           <%= image_tag transaction.category.icon, class: "rounded-circle", width: 24, height: 24 %>
-        <% else %>
-           <i class="bi bi-bag fs-5 text-secondary"></i>
-        <% end %>
+<%= link_to transaction, class: "text-decoration-none d-block" do %>
+  <div id="<%= dom_id transaction %>" class="card mb-2 shadow-sm border-0 rounded-3 transaction-card">
+    <div class="card-body p-3 d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;" role="img" aria-label="<%= transaction.category&.name || 'General category' %> icon">
+          <% if transaction.category&.icon&.attached? %>
+             <%= image_tag transaction.category.icon, class: "rounded-circle", width: 24, height: 24, alt: "#{transaction.category.name} icon" %>
+          <% else %>
+             <i class="bi bi-bag fs-5 text-secondary" aria-hidden="true"></i>
+          <% end %>
+        </div>
+        <div>
+          <h6 class="mb-0 fw-semibold text-dark"><%= transaction.title %></h6>
+          <small class="text-secondary small"><%= transaction.category&.name || 'Geral' %></small>
+        </div>
       </div>
-      <div>
-        <h6 class="mb-0 fw-semibold text-dark"><%= transaction.title %></h6>
-        <small class="text-secondary" style="font-size: 0.8rem;"><%= transaction.category&.name || 'Geral' %></small>
+      
+      <div class="text-end">
+        <div class="fw-bold text-dark fs-6">
+          R$ <%= number_with_precision(transaction.amount, precision: 2) %>
+        </div>
+        <small class="badge <%= transaction.paid? ? 'text-bg-success' : (transaction.overdue? ? 'text-bg-danger' : 'text-bg-warning') %> rounded-pill" style="font-size: 0.65rem;">
+          <%= transaction.status.humanize %>
+        </small>
       </div>
-    </div>
-    
-    <div class="text-end">
-      <div class="fw-bold text-dark fs-6">
-        R$ <%= number_with_precision(transaction.amount, precision: 2) %>
-      </div>
-      <small class="badge <%= transaction.paid? ? 'text-bg-success' : (transaction.overdue? ? 'text-bg-danger' : 'text-bg-warning') %> rounded-pill" style="font-size: 0.65rem;">
-        <%= transaction.status.humanize %>
-      </small>
     </div>
   </div>
-</div>
+<% end %>

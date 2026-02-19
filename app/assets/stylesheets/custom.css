@@ -1,0 +1,72 @@
+/* Transaction Card Hover Effects */
+.transaction-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.transaction-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.transaction-card:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Advanced Options Collapse Animation */
+#advancedOptions {
+  transition: height 0.3s ease;
+}
+
+.btn-link i.bi-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.btn-link[aria-expanded="true"] i.bi-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* Form Focus States */
+.form-control:focus,
+.form-select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+/* Empty State Styling */
+.text-center .bi-inbox {
+  opacity: 0.5;
+}
+
+/* Responsive Font Sizes */
+@media (max-width: 576px) {
+  .fs-1 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Bottom Navigation Improvements */
+.navbar.fixed-bottom a {
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.navbar.fixed-bottom a:active {
+  transform: scale(0.95);
+}
+
+/* Loading State Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn[data-disable-with] .bi-hourglass-split {
+  animation: spin 1s linear infinite;
+}

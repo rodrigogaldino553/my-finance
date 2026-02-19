@@ -33,22 +33,22 @@
       <%= yield %>
     </div>
 
-    <nav class="navbar navbar-dark bg-black fixed-bottom border-top border-secondary">
-      <div class="container-fluid d-flex justify-content-around align-items-center">
-        <%= link_to root_path, class: "text-decoration-none text-center #{current_page?(root_path) ? 'text-success' : 'text-secondary'}" do %>
+    <nav class="navbar navbar-dark bg-black fixed-bottom border-top border-secondary" style="min-height: 60px;">
+      <div class="container-fluid d-flex justify-content-around align-items-center py-2">
+        <%= link_to root_path, class: "text-decoration-none text-center #{current_page?(root_path) ? 'text-success' : 'text-secondary'}", style: "min-width: 60px; min-height: 44px; display: flex; flex-direction: column; justify-content: center; align-items: center;", "aria-label": "Home" do %>
           <i class="bi bi-wallet2 fs-4"></i>
-          <div style="font-size: 0.7rem;">Home</div>
+          <div class="small" style="font-size: 0.7rem;">Home</div>
         <% end %>
 
-        <%= link_to new_transaction_path, class: "text-decoration-none text-center" do %>
-          <div class="rounded-circle bg-success d-flex align-items-center justify-content-center shadow" style="width: 50px; height: 50px; margin-top: -25px; border: 4px solid #000;">
+        <%= link_to new_transaction_path, class: "text-decoration-none text-center", style: "min-width: 60px; min-height: 44px; display: flex; justify-content: center; align-items: center;", "aria-label": "Add new transaction" do %>
+          <div class="rounded-circle bg-success d-flex align-items-center justify-content-center shadow" style="width: 56px; height: 56px; margin-top: -28px; border: 4px solid #000;">
              <i class="bi bi-plus-lg fs-3 text-white"></i>
           </div>
         <% end %>
 
-        <%= link_to categories_path, class: "text-decoration-none text-center #{current_page?(categories_path) ? 'text-success' : 'text-secondary'}" do %>
+        <%= link_to categories_path, class: "text-decoration-none text-center #{current_page?(categories_path) ? 'text-success' : 'text-secondary'}", style: "min-width: 60px; min-height: 44px; display: flex; flex-direction: column; justify-content: center; align-items: center;", "aria-label": "Categories" do %>
           <i class="bi bi-grid fs-4"></i>
-          <div style="font-size: 0.7rem;">Cats</div>
+          <div class="small" style="font-size: 0.7rem;">Categories</div>
         <% end %>
       </div>
     </nav>

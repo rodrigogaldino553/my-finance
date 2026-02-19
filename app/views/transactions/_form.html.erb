@@ -1,34 +1,51 @@
 <%= form_with(model: transaction, class: "mb-5 pb-5") do |form| %>
   <% if transaction.errors.any? %>
-    <div class="alert alert-danger">
-      <h4 class="alert-heading"><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h4>
-      <ul class="mb-0">
-        <% transaction.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="alert alert-danger d-flex align-items-start" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2 mt-1 flex-shrink-0"></i>
+      <div>
+        <h4 class="alert-heading h6"><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h4>
+        <ul class="mb-0" id="error-list">
+          <% transaction.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
   <div class="mb-3">
-    <%= form.label :amount, class: "form-label fw-bold" %>
+    <%= form.label :amount, class: "form-label fw-bold" do %>
+      Amount <span class="text-danger">*</span>
+    <% end %>
     <div class="input-group input-group-lg">
       <span class="input-group-text bg-success text-white border-success">R$</span>
-      <%= form.number_field :amount, step: "0.01", class: "form-control form-control-lg fw-bold text-success", placeholder: "0.00", style: "font-size: 2rem;" %>
+      <%= form.number_field :amount, step: "0.01", class: "form-control form-control-lg fw-bold text-success fs-1", placeholder: "0.00", required: true, autofocus: true, "aria-required": "true", "aria-describedby": transaction.errors[:amount].any? ? "amount-error" : nil %>
     </div>
+    <% if transaction.errors[:amount].any? %>
+      <div id="amount-error" class="invalid-feedback d-block">
+        <%= transaction.errors[:amount].first %>
+      </div>
+    <% end %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :title, class: "form-label" %>
-    <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "What was this for?" %>
+    <%= form.label :title, class: "form-label" do %>
+      Title <span class="text-danger">*</span>
+    <% end %>
+    <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "What was this for?", required: true, "aria-required": "true", "aria-describedby": transaction.errors[:title].any? ? "title-error" : nil %>
+    <% if transaction.errors[:title].any? %>
+      <div id="title-error" class="invalid-feedback d-block">
+        <%= transaction.errors[:title].first %>
+      </div>
+    <% end %>
   </div>
 
   <div class="row">
-    <div class="col-6 mb-3">
+    <div class="col-12 col-md-6 mb-3">
         <%= form.label :payment_date, class: "form-label" %>
         <%= form.date_field :payment_date, class: "form-control" %>
     </div>
-    <div class="col-6 mb-3">
+    <div class="col-12 col-md-6 mb-3">
         <%= form.label :category_id, "Category", class: "form-label" %>
         <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, { prompt: "Select..." }, { class: "form-select" } %>
     </div>
@@ -36,7 +53,9 @@
 
   <div class="mb-3">
     <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#advancedOptions" aria-expanded="false" aria-controls="advancedOptions">
-       <i class="bi bi-gear-fill me-2"></i> Advanced Options (Recurring, Status)
+       <i class="bi bi-gear-fill me-2"></i> 
+       <span>Advanced Options (Recurring, Status)</span>
+       <i class="bi bi-chevron-down ms-2"></i>
     </button>
   </div>
 
@@ -72,7 +91,7 @@
   </div>
 
   <div class="d-grid gap-2 mt-4">
-    <%= form.submit "Save Transaction", class: "btn btn-success btn-lg shadow rounded-pill" %>
-    <%= link_to "Cancel", transactions_path, class: "btn btn-outline-secondary rounded-pill" %>
+    <%= form.submit "Save Transaction", class: "btn btn-success btn-lg shadow rounded-pill", data: { disable_with: "<i class='bi bi-hourglass-split me-2'></i>Saving..." } %>
+    <%= link_to "Cancel", transactions_path, class: "btn btn-outline-secondary rounded-pill shadow-sm" %>
   </div>
 <% end %>

@@ -1,21 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  title: MyString
-  amount: 1.5
-  payment_date: 2026-02-02 04:11:51
-  until_date: 2026-02-02 04:11:51
-  recurring: false
-  recurrence: 1
-  status: 1
-  comment: MyText
+  title: "Internet Bill"
+  amount: 100.00
+  payment_date: 2026-02-02
+  category: one
+  recurring: true
+  recurrence: 2 # monthly
+  recurring_at: <%= Date.tomorrow %>
+  status: 0 # pending
 
 two:
-  title: MyString
-  amount: 1.5
-  payment_date: 2026-02-02 04:11:51
-  until_date: 2026-02-02 04:11:51
+  title: "Grocery Shopping"
+  amount: 50.00
+  payment_date: 2026-02-02
+  category: two
   recurring: false
-  recurrence: 1
-  status: 1
-  comment: MyText
+  status: 1 # paid

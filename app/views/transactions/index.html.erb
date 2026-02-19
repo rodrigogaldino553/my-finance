@@ -1,4 +1,6 @@
 <div class="pb-5">
+  <h1 class="visually-hidden">Transactions</h1>
+  
   <div class="row mb-4">
     <div class="col-12">
         <div class="card bg-success text-white shadow-sm border-0 rounded-4">
@@ -11,22 +13,28 @@
   </div>
 
   <div id="transactions">
-    <% @transactions.group_by { |t| t.payment_date || Date.today }.each do |date, transactions| %>
-      <div class="mb-3">
-        <h6 class="text-secondary text-uppercase fw-bold ms-1 mb-2" style="font-size: 0.75rem;">
-            <%= date == Date.today ? 'Today' : date == Date.yesterday ? 'Yesterday' : date.strftime("%d %b %Y") %>
-        </h6>
-        <div>
-           <%= render transactions %>
-        </div>
+    <% if @transactions.empty? %>
+      <div class="text-center py-5">
+        <i class="bi bi-inbox fs-1 text-secondary d-block mb-3"></i>
+        <h3 class="text-secondary mb-2">No transactions yet</h3>
+        <p class="text-muted mb-4">Start tracking your finances by adding your first transaction</p>
+        <%= link_to new_transaction_path, class: "btn btn-success btn-lg rounded-pill shadow" do %>
+          <i class="bi bi-plus-lg me-2"></i>Add Transaction
+        <% end %>
       </div>
+    <% else %>
+      <% @transactions.group_by { |t| t.payment_date || Date.today }.each do |date, transactions| %>
+        <div class="mb-3">
+          <h6 class="text-secondary text-uppercase fw-bold ms-1 mb-2 small">
+              <%= date == Date.today ? 'Today' : date == Date.yesterday ? 'Yesterday' : date.strftime("%d %b %Y") %>
+          </h6>
+          <div>
+             <%= render transactions %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
 
-<div class="fixed-bottom mb-5 pb-4 me-3 text-end" style="pointer-events: none;">
-  <%= link_to new_transaction_path, class: "btn btn-success rounded-circle shadow-lg d-none", style: "width: 60px; height: 60px; pointer-events: auto;", data: { turbo_frame: "modal" } do %>
-    <i class="bi bi-plus-lg fs-2 text-white lh-1" style="line-height: 56px;"></i>
-  <% end %>
-  <%# Note: The bottom nav add button replaces the floating status button effectively, so I hid this one but kept structure if needed later %>
-</div>
+<%# Removed redundant FAB - using bottom navigation add button instead %>
