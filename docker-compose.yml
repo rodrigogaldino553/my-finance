@@ -4,15 +4,25 @@ services:
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=money_development
+      - POSTGRES_DB=money
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+  redis:
+    image: redis:7.0
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
   web:
     tty: true
     stdin_open: true
     build:
       context: .
       dockerfile: compose.Dockerfile
+    entrypoint: /rails/bin/docker-entrypoint
     command: bash -c "rm -f tmp/pids/server.pid && ./bin/rails s -b '0.0.0.0' -p 10000"
     volumes:
       - .:/rails
@@ -22,16 +32,21 @@ services:
       - db
       - redis
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db/money_development
-      - REDIS_URL=redis://redis:6379/1
+      - DATABASE_URL=postgresql://postgres:password@db:5432/money
+      - REDIS_URL=redis://redis:6379/0
       - RAILS_MASTER_KEY
-  redis:
-    image: redis:7.0
-    command: redis-server --appendonly yes
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
+  sidekiq:
+        build: .
+        command: bundle exec sidekiq
+        volumes:
+            - .:/rails
+        depends_on:
+            - db
+            - redis
+        environment:
+            - RAILS_MASTER_KEY
+            - DATABASE_URL=postgresql://postgres:password@db:5432/money
+            - REDIS_URL=redis://redis:6379/0
 volumes:
   bundle_data:
   redis_data:

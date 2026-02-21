@@ -7,8 +7,7 @@ fi
 
 # Function to check if the database is ready
 db_ready() {
-  # Try to connect to the database using pg_isready
-  pg_isready -h db -p 5432 -q -U postgres
+  pg_isready -d "$DATABASE_URL" -q
 }
 
 # Wait for the database to become available
